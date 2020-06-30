@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using DesignCrowdTC.Core.Extensions;
 
-namespace DesignCrowdTC.App.Utilities
+namespace DesignCrowdTC.Business.Utilities
 {
     public class BusinessDayCounter
     {
-        public int WeekdaysBetweenTwoDates(DateTime firstDate, DateTime secondDate, IDictionary<string, DateTime> publicHolidaysLookup = null)
+        public int WeekdaysBetweenTwoDates(DateTime firstDate, DateTime secondDate, Predicate<DateTime> condition = null)
         {
             // TODO: Do unit tests
             var days = 0;
@@ -17,7 +17,7 @@ namespace DesignCrowdTC.App.Utilities
             for (var date = firstDate.AddDays(1); date < secondDate; date = date.AddDays(1))
             {
                 // Post increment dates to only count the dates in between
-                if (date.IsWeekDay() && (publicHolidaysLookup == null || !publicHolidaysLookup.ContainsKey(date.ToShortDateString())))
+                if (date.IsWeekDay() && (condition == null || condition(date)))
                     days++;
             }
 
@@ -26,7 +26,8 @@ namespace DesignCrowdTC.App.Utilities
 
         public int BusinessDaysBetweenTwoDates(DateTime firstDate, DateTime secondDate, IList<DateTime> publicHolidays)
         {
-            return WeekdaysBetweenTwoDates(firstDate, secondDate, publicHolidays.SafeToDictionary(ph => ph.ToShortDateString()));
+            var publicHolidaysLookup = publicHolidays.SafeToDictionary(ph => ph.ToShortDateString());
+            return WeekdaysBetweenTwoDates(firstDate, secondDate, time => !publicHolidaysLookup.ContainsKey(time.ToShortDateString()));
         }
     }
 }
