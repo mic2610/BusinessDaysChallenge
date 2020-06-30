@@ -68,33 +68,34 @@ namespace DesignCrowdTC.Business.Utilities
                     {
                         publicHoliday.Date = publicHoliday.Date.AddDays(date.DayOfWeek == DayOfWeek.Saturday ? 2 : 1);
                         publicHolidayLookup[publicHoliday.Date.ToShortDateString()] = publicHoliday;
+                        isPublicHoliday = false;
                     }
 
                     break;
                 }
                 case PublicHolidayRule.CertainOccurrence when publicHoliday.Occurence != null:
                 {
-                    var occurenceDate = new DateTime(publicHoliday.Date.Year, publicHoliday.Date.Month, 1);
-                    while (occurenceDate.DayOfWeek != publicHoliday.Occurence.DayOfWeek)
-                        occurenceDate = occurenceDate.AddDays(1);
+                    var publicHolidayOccurence = new DateTime(publicHoliday.Date.Year, publicHoliday.Date.Month, 1);
+                    while (publicHolidayOccurence.DayOfWeek != publicHoliday.Occurence.DayOfWeek)
+                        publicHolidayOccurence = publicHolidayOccurence.AddDays(1);
 
                     switch (publicHoliday.Occurence.DayOccurence)
                     {
                         case 2:
-                            occurenceDate = occurenceDate.AddDays(7);
+                            publicHolidayOccurence = publicHolidayOccurence.AddDays(7);
                             break;
                         case 3:
-                            occurenceDate = occurenceDate.AddDays(14);
+                            publicHolidayOccurence = publicHolidayOccurence.AddDays(14);
                             break;
                         default:
                         {
                             if (publicHoliday.Occurence.DayOccurence >= 4)
-                                occurenceDate = occurenceDate.AddDays(21);
+                                publicHolidayOccurence = publicHolidayOccurence.AddDays(21);
                             break;
                         }
                     }
 
-                    isPublicHoliday = occurenceDate == date;
+                    publicHolidayLookup[publicHolidayOccurence.Date.ToShortDateString()] = new PublicHoliday { Date = publicHolidayOccurence.Date, Name = publicHoliday.Name };
                     break;
                 }
             }
