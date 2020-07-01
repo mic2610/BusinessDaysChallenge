@@ -6,7 +6,7 @@ namespace DesignCrowdTC.Business.Models
     {
         public string Name { get; set; }
 
-        public DateTime Date { get; set; }
+        public DateTime OriginalDate { get; set; }
 
         public PublicHolidayRule? Rule { get; set; }
 

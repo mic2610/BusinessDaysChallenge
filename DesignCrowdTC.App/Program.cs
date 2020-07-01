@@ -1,4 +1,5 @@
 ﻿using System;
+using DesignCrowdTC.Business.Models;
 using DesignCrowdTC.Business.Utilities;
 
 namespace DesignCrowdTC.App
@@ -7,7 +8,7 @@ namespace DesignCrowdTC.App
     {
         static void Main(string[] args)
         {
-            // WeekdaysBetweenTwoDates
+            // TASK 1: WeekdaysBetweenTwoDates
             var startDate = new DateTime(2013, 10, 7);
             var endDate = new DateTime(2013, 10, 9);
             var businessDayCounter = new BusinessDayCounter();
@@ -37,8 +38,8 @@ namespace DesignCrowdTC.App
             Console.Read();
 
 
-            // BusinessDaysBetweenTwoDates
-            var publicHolidays = new[] { new DateTime(2013, 12, 25), new DateTime(2013, 12, 26), new DateTime(2014, 1, 1) };
+            // TASK 2: BusinessDaysBetweenTwoDates
+            var publicHolidays = new[] { new PublicHoliday { OriginalDate = new DateTime(2013, 12, 25)}, new PublicHoliday { OriginalDate = new DateTime(2013, 12, 26) }, new PublicHoliday { OriginalDate = new DateTime(2014, 1, 1) }};
 
             var startDate5 = new DateTime(2013, 10, 7);
             var endDate5 = new DateTime(2013, 10, 9);
@@ -56,6 +57,29 @@ namespace DesignCrowdTC.App
             var endDate7 = new DateTime(2014, 1, 1);
             var businessDaysBetweenTwoDates7 = businessDayCounter.BusinessDaysBetweenTwoDates(startDate7, endDate7, publicHolidays);
             Console.WriteLine($"Business days in between {startDate7.ToShortDateString()} and {endDate7.ToShortDateString()} is {businessDaysBetweenTwoDates7} business days");
+            Console.Read();
+
+            // TASK 3: Public holidays
+            var customPublicHolidays = new[]
+            {
+                new PublicHoliday
+                {
+                    OriginalDate = new DateTime(2013, 6, 1),
+                    Name = "Queen's Birthday",
+                    Rule = PublicHolidayRule.CertainOccurrence,
+                    Occurence =  new CertainOccurence { DayOccurence = 2, DayOfWeek = DayOfWeek.Monday }
+                }
+            };
+
+            // Thursday
+            var startDate8 = new DateTime(2013, 5, 28);
+            var endDate8 = new DateTime(2013, 6, 14);
+
+            // Act
+            var businessDaysBetweenTwoDates8 = businessDayCounter.BusinessDaysBetweenTwoDates(startDate8, endDate8, customPublicHolidays);
+
+            // Assert
+            Console.WriteLine($"Business days in between {startDate8.ToShortDateString()} and {endDate8.ToShortDateString()} is {businessDaysBetweenTwoDates8} business days");
             Console.Read();
         }
     }

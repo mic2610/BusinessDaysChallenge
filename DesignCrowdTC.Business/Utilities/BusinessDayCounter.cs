@@ -5,37 +5,28 @@ using DesignCrowdTC.Core.Extensions;
 
 namespace DesignCrowdTC.Business.Utilities
 {
-    public class BusinessDayCounter
+    public class BusinessDayCounter : IBusinessDayCounter
     {
         public int WeekdaysBetweenTwoDates(DateTime firstDate, DateTime secondDate)
         {
             return ValidDaysBetweenTwoDates(firstDate, secondDate);
         }
 
-        public int BusinessDaysBetweenTwoDates(DateTime firstDate, DateTime secondDate, IList<DateTime> publicHolidays)
-        {
-            var publicHolidaysLookup = publicHolidays.SafeToDictionary(ph => ph.ToShortDateString());
-            return ValidDaysBetweenTwoDates(firstDate, secondDate, date => publicHolidaysLookup.ContainsKey(date.ToShortDateString()));
-        }
-
         public int BusinessDaysBetweenTwoDates(DateTime firstDate, DateTime secondDate, IList<PublicHoliday> publicHolidays)
         {
-            var publicHolidaysLookup = publicHolidays.SafeToDictionary(ph => ph.Date.ToShortDateString());
-            return ValidDaysBetweenTwoDates(firstDate, secondDate, publicHolidayLookup: publicHolidaysLookup);
+            var publicHolidaysLookup = publicHolidays.SafeToDictionary(ph => ph.OriginalDate.ToShortDateString());
+            return ValidDaysBetweenTwoDates(firstDate, secondDate, publicHolidaysLookup);
         }
 
-        private int ValidDaysBetweenTwoDates(DateTime firstDate, DateTime secondDate, Predicate<DateTime> exclusionCondition = null, IDictionary<string, PublicHoliday> publicHolidayLookup = null)
+        private int ValidDaysBetweenTwoDates(DateTime firstDate, DateTime secondDate, IDictionary<string, PublicHoliday> publicHolidayLookup = null)
         {
             var days = 0;
             if (secondDate <= firstDate)
                 return days;
 
-            // Increment days as long as it's a weekend
+            // Increment days as long as it's a weekday
             for (var date = firstDate.AddDays(1); date < secondDate; date = date.AddDays(1))
             {
-                if (exclusionCondition != null && exclusionCondition(date))
-                    continue;
-
                 if (IsPublicHoliday(publicHolidayLookup, date))
                     continue;
 
@@ -55,19 +46,21 @@ namespace DesignCrowdTC.Business.Utilities
             var isPublicHoliday = false;
             switch (publicHoliday.Rule)
             {
+                // Fallback to a comparison on a date if no rule is present
                 case null:
-                    isPublicHoliday = date == publicHoliday.Date;
+                    isPublicHoliday = date == publicHoliday.OriginalDate || date.ToShortDateString() == publicHoliday.OriginalDate.ToShortDateString();
                     break;
                 case PublicHolidayRule.Yearly:
-                    isPublicHoliday = date.Day == publicHoliday.Date.Day;
+                    isPublicHoliday = date.Day == publicHoliday.OriginalDate.Day;
                     break;
                 case PublicHolidayRule.YearlyWeekdayOnly:
                 {
-                    isPublicHoliday = date.Day == publicHoliday.Date.Day;
+                    isPublicHoliday = date.Day == publicHoliday.OriginalDate.Day;
                     if (isPublicHoliday && !date.IsWeekDay())
                     {
-                        publicHoliday.Date = publicHoliday.Date.AddDays(date.DayOfWeek == DayOfWeek.Saturday ? 2 : 1);
-                        publicHolidayLookup[publicHoliday.Date.ToShortDateString()] = publicHoliday;
+                        // Delay the public holiday to the first Monday if the currently selected public holiday falls on a Saturday or Sunday and then add back to the lookup
+                        publicHoliday.OriginalDate = publicHoliday.OriginalDate.AddDays(date.DayOfWeek == DayOfWeek.Saturday ? 2 : 1);
+                        publicHolidayLookup[publicHoliday.OriginalDate.ToShortDateString()] = publicHoliday;
                         isPublicHoliday = false;
                     }
 
@@ -75,7 +68,7 @@ namespace DesignCrowdTC.Business.Utilities
                 }
                 case PublicHolidayRule.CertainOccurrence when publicHoliday.Occurence != null:
                 {
-                    var publicHolidayOccurence = new DateTime(publicHoliday.Date.Year, publicHoliday.Date.Month, 1);
+                    var publicHolidayOccurence = new DateTime(publicHoliday.OriginalDate.Year, publicHoliday.OriginalDate.Month, 1);
                     while (publicHolidayOccurence.DayOfWeek != publicHoliday.Occurence.DayOfWeek)
                         publicHolidayOccurence = publicHolidayOccurence.AddDays(1);
 
@@ -95,7 +88,8 @@ namespace DesignCrowdTC.Business.Utilities
                         }
                     }
 
-                    publicHolidayLookup[publicHolidayOccurence.Date.ToShortDateString()] = new PublicHoliday { Date = publicHolidayOccurence.Date, Name = publicHoliday.Name };
+                    // Add new delayed public holiday to be processed on another date
+                    publicHolidayLookup[publicHolidayOccurence.Date.ToShortDateString()] = new PublicHoliday { OriginalDate = publicHolidayOccurence.Date, Name = publicHoliday.Name };
                     break;
                 }
             }

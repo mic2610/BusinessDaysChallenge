@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.30204.135
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesignCrowdTC.Web", "DesignCrowdTC.Web\DesignCrowdTC.Web.csproj", "{5D6EF9A0-5F99-4843-AC72-3C844F38E8A8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesignCrowdTC.App", "DesignCrowdTC.App\DesignCrowdTC.App.csproj", "{5765B312-F6C3-4E3C-9E34-6C5B23B3689E}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesignCrowdTC.Core", "DesignCrowdTC.Core\DesignCrowdTC.Core.csproj", "{A22FB4B5-2C30-4CCA-BAEA-369057332DD5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesignCrowdTC.Business", "DesignCrowdTC.Business\DesignCrowdTC.Business.csproj", "{F5EA3C0F-4711-41E7-B510-5D16690536F3}"
@@ -25,10 +23,6 @@ Global
 		{5D6EF9A0-5F99-4843-AC72-3C844F38E8A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5D6EF9A0-5F99-4843-AC72-3C844F38E8A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5D6EF9A0-5F99-4843-AC72-3C844F38E8A8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5765B312-F6C3-4E3C-9E34-6C5B23B3689E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5765B312-F6C3-4E3C-9E34-6C5B23B3689E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5765B312-F6C3-4E3C-9E34-6C5B23B3689E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5765B312-F6C3-4E3C-9E34-6C5B23B3689E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A22FB4B5-2C30-4CCA-BAEA-369057332DD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A22FB4B5-2C30-4CCA-BAEA-369057332DD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A22FB4B5-2C30-4CCA-BAEA-369057332DD5}.Release|Any CPU.ActiveCfg = Release|Any CPU

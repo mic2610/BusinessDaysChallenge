@@ -49,7 +49,7 @@ namespace DesignCrowdTC.Business.Tests.Utilities
             {
                 // Arrange
                 var businessDayCounter = new BusinessDayCounter();
-                var publicHolidays = new[] { new DateTime(2013, 12, 25), new DateTime(2013, 12, 26), new DateTime(2014, 1, 1) };
+                var publicHolidays = new[] { new PublicHoliday { OriginalDate = new DateTime(2013, 12, 25)}, new PublicHoliday { OriginalDate = new DateTime(2013, 12, 26)}, new PublicHoliday { OriginalDate = new DateTime(2014, 1, 1) }};
                 var startDate = new DateTime(2013, 10, 7);
                 var endDate = new DateTime(2013, 10, 9);
 
@@ -65,7 +65,7 @@ namespace DesignCrowdTC.Business.Tests.Utilities
             {
                 // Arrange
                 var businessDayCounter = new BusinessDayCounter();
-                var publicHolidays = new[] { new PublicHoliday { Date = new DateTime(2013, 4, 25), Name = "Anzac Day", Rule = PublicHolidayRule.Yearly }};
+                var publicHolidays = new[] { new PublicHoliday { OriginalDate = new DateTime(2013, 4, 25), Name = "Anzac Day", Rule = PublicHolidayRule.Yearly }};
                 var startDate = new DateTime(2013, 4, 20);
                 var endDate = new DateTime(2013, 5, 1);
 
@@ -82,7 +82,7 @@ namespace DesignCrowdTC.Business.Tests.Utilities
                 // Arrange
                 // Monday 3rd December 2022 is the public holiday
                 var businessDayCounter = new BusinessDayCounter();
-                var publicHolidays = new[] { new PublicHoliday { Date = new DateTime(2022, 1, 1), Name = "New Years Eve", Rule = PublicHolidayRule.YearlyWeekdayOnly } };
+                var publicHolidays = new[] { new PublicHoliday { OriginalDate = new DateTime(2022, 1, 1), Name = "New Years Eve", Rule = PublicHolidayRule.YearlyWeekdayOnly } };
 
                 // Thursday
                 var startDate = new DateTime(2021, 12, 30);
@@ -104,7 +104,7 @@ namespace DesignCrowdTC.Business.Tests.Utilities
                 {
                     new PublicHoliday
                     {
-                        Date = new DateTime(2013, 6, 1),
+                        OriginalDate = new DateTime(2013, 6, 1),
                         Name = "Queen's Birthday",
                         Rule = PublicHolidayRule.CertainOccurrence,
                         Occurence =  new CertainOccurence { DayOccurence = 2, DayOfWeek = DayOfWeek.Monday }
