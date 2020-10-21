@@ -1,13 +1,13 @@
 # designCrowd-tech-challenge
-DesignCrowd Tech Challenge
+Business Day Counter Tech Challenge
 
 # Design Choices and Architecture:
 
-DesignCrowd Tech Challenge solution has been developed in .NET Core 3.1 using the existing boilerplate with many modifications. It has been developed using the Onion architecture (does include the data layer) consisting of the following in order from the inner most layer to the outer most layer:
+Business Day Counter Tech Challenge solution has been developed in .NET Core 3.1 using the existing boilerplate with many modifications. It has been developed using the Onion architecture (does include the data layer) consisting of the following in order from the inner most layer to the outer most layer:
 
-* DesignCrowd.Core
-* DesignCrowd.Business
-* DesignCrowd.Web
+* BusinessDayCounter.Core
+* BusinessDayCounter.Business
+* BusinessDayCounter.Web
 
 This allows more moduler and cleaner code to be written and it also avoids any issues in Dependency Injection such as a circular dependency from when two services attempt to access each other. Tasks are displayed using MVC. Furthermore this solution also uses SOLID principles:
 
@@ -22,4 +22,4 @@ This allows more moduler and cleaner code to be written and it also avoids any i
 The web app displays all three tasks on initial load using the provided examples
 
 # Unit Tests
-Unit tests have been created using MSUnit and are available witin ~/Tests/DesignCrowdTC.Business.Tests/
+Unit tests have been created using MSUnit and are available witin ~/Tests/BusinessDayCounter.Business.Tests/
