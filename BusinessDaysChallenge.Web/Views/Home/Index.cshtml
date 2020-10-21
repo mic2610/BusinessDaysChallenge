@@ -1,0 +1,167 @@
+﻿@using BusinessDaysChallenge.Core.Extensions
+@model DaysCollectionViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<h1>Task One: Weekdays Between Two Dates</h1>
+
+@if (!Model.WeekdaysBetween.IsNullOrEmpty())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Start Date
+                </th>
+                <th>
+                    End Date
+                </th>
+                <th>
+                    Result
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.WeekdaysBetween)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StartDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EndDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DaysBetween)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <h1>No results are available for @nameof(Model.WeekdaysBetween)</h1>
+}
+
+
+<h1>Task Two: Business Days Between Two Dates</h1>
+
+@if (!Model.BusinessDaysBetween.IsNullOrEmpty())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Start Date
+                </th>
+                <th>
+                    End Date
+                </th>
+                <th>
+                    Result
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.BusinessDaysBetween)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StartDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EndDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DaysBetween)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <h1>No results are available for @nameof(Model.BusinessDaysBetween)</h1>
+}
+
+
+<h1>Task Three: More Holidays</h1>
+
+@if (!Model.PublicHolidaysDaysBetween.IsNullOrEmpty())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Start Date
+                </th>
+                <th>
+                    End Date
+                </th>
+                <th>
+                    Result
+                </th>
+                <th>
+                    Holiday
+                </th>
+                <th>
+                    Original Date
+                </th>
+                <th>
+                    Rule
+                </th>
+                <th>
+                    Day of Week
+                </th>
+                <th>
+                    Day Occurence
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.PublicHolidaysDaysBetween)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StartDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EndDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DaysBetween)
+                    </td>
+                    @if (item.PublicHoliday != null)
+                    {
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PublicHoliday.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PublicHoliday.OriginalDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PublicHoliday.Rule)
+                        </td>
+                        @if (item.PublicHoliday.Occurence != null)
+                        {
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PublicHoliday.Occurence.DayOfWeek)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PublicHoliday.Occurence.DayOccurence)
+                            </td>
+                        }
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <h1>No results are available for @nameof(Model.PublicHolidaysDaysBetween)</h1>
+}
