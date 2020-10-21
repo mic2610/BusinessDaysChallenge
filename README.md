@@ -4,42 +4,36 @@
 Task One: Weekdays Between Two Dates
 --------------------------------------
 Calculates the number of weekdays in between two dates.
-● Weekdays are Monday, Tuesday, Wednesday, Thursday, Friday.
-● The returned count should not include either firstDate or secondDate -
-e.g. between Monday 07-Oct-2013 and Wednesday 09-Oct-2013 is one weekday.
-● If secondDate is equal to or before firstDate, return 0.Expected Results
+
+* Weekdays are Monday, Tuesday, Wednesday, Thursday, Friday.
+* The returned count should not include either firstDate or secondDate - e.g. between Monday 07-Oct-2013 and Wednesday 09-Oct-2013 is one weekday.
+* If secondDate is equal to or before firstDate, return 0.Expected Results
 
 -------------------------------------------
 ​Task Two: Business Days Between Two Dates
 -------------------------------------------
 Calculate the number of business days in between two dates.
-● Business days are Monday, Tuesday, Wednesday, Thursday, Friday, but excluding any
-dates which appear in the supplied list of public holidays.
-● The returned count should not include either firstDate or secondDate - e.g. between Monday
-07-Oct-2013 and Wednesday 09-Oct-2013 is one weekday.
-● If secondDate is equal to or before firstDate, return 0.
-Expected Results
+
+* Business days are Monday, Tuesday, Wednesday, Thursday, Friday, but excluding any dates which appear in the supplied list of public holidays.
+* The returned count should not include either firstDate or secondDate - e.g. between Monday 07-Oct-2013 and Wednesday 09-Oct-2013 is one weekday.
+* If secondDate is equal to or before firstDate, return 0.
+
 Sample list of Public Holidays:
-● 25​th​ December 2013
-● 26​th​ December 2013
-● 1​st​ January 2014
+* 25​th​ December 2013
+* 26​th​ December 2013
+* 1​st​ January 2014
 
 --------------------------------------
 ​Task Three: More Holidays
 --------------------------------------
 Design a data structure or hierarchy of structures which can define public holidays in a more
-complex fashion than simple dates.This should cater for things such as:
+complex fashion than simple dates. This should cater for things such as:
 
 - Public holidays which are always on the same day, e.g. Anzac Day on April 25th every year.
-- Public holidays which are always on the same day, except when that falls on a weekend. e.g. New
-Year's Day on January 1st every year, unless that is a Saturday or Sunday, in which case the
-holiday is the next Monday.
-- Public holidays on a certain occurrence of a certain day in a month. e.g. Queen's Birthday on the
-second Monday in June every year.
+- Public holidays which are always on the same day, except when that falls on a weekend. e.g. New Year's Day on January 1st every year, unless that is a Saturday or Sunday, in which case the holiday is the next Monday.
+- Public holidays on a certain occurrence of a certain day in a month. e.g. Queen's Birthday on the second Monday in June every year.
 
-Given this data structure, the BusinessDaysBetweenTwoDates() function should be able to be
-extended to take a list of public holiday rules, rather than a list of DateTimes, and calculate the
-number of business days between two dates using those rules to define public holidays.
+Given this data structure, the BusinessDaysBetweenTwoDates() function should be able to be extended to take a list of public holiday rules, rather than a list of DateTimes, and calculate the number of business days between two dates using those rules to define public holidays.
 
 # Design Choices and Architecture:
 
